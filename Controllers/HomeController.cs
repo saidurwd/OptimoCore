@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using OptimoCore.Models;
-using ProductCatalog.Models;
+using OptimoCore.Models;
 
 namespace ProductCatalog.Controllers
 {

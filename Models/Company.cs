@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace ProductCatalog.Models
+namespace OptimoCore.Models
 {
     public partial class Company
     {

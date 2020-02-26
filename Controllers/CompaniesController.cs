@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using OptimoCore.Data;
-using ProductCatalog.Models;
+using OptimoCore.Models;
 
 namespace ProductCatalog.Controllers
 {
@@ -20,11 +20,44 @@ namespace ProductCatalog.Controllers
             _context = context;
         }
 
+        [Route("Datatable")]
         // GET: Companies
-        //public async Task<IActionResult> Index()
-        //{
-        //    return View(await _context.Company.ToListAsync());
-        //}
+        public IActionResult Datatable()
+        {
+            return View();
+        }
+
+        [Route("GetList")]
+        [HttpPost]
+        public IActionResult GetList()
+        {
+            //Server side processing
+            int start = Convert.ToInt32(HttpContext.Request.Query["start"]);
+            int length = Convert.ToInt32(HttpContext.Request.Query["length"]);
+            string searchValue = HttpContext.Request.Query["search[value]"];
+            string sortColumnName = HttpContext.Request.Query["columns[" + HttpContext.Request.Query["order[i][column]"] + "][name]"];
+            string sortDirection = HttpContext.Request.Query["order[0][dir]"];
+            // total data
+            var empList = _context.Company.ToList();
+
+            int totalRows = empList.Count;
+
+            if (!string.IsNullOrEmpty(searchValue))
+            {
+                empList = empList.
+                    Where(x => x.CompanyName.ToLower().Contains(searchValue.ToLower()) || x.Address.ToLower().Contains(searchValue.ToLower()) || x.Email.ToLower().Contains(searchValue.ToLower()) || x.Phone.ToLower().Contains(searchValue.ToLower())).ToList();
+            }
+
+            int totalRowsAfterFiltering = empList.Count;
+            //Sorting
+            //empList = empList.OrderBy(sortColumnName+ " " +sortDirection).ToList();
+
+            //Paging
+            //empList = empList.Skip(start).Take(length).ToList();
+            //return Json(new { data = empList, draw = HttpContext.Request.Query["draw"], recordsTotal = totalRows, recordsFiltered = totalRowsAfterFiltering });
+            return Json(new { data = empList });
+        }
+
 
         [Route("Index")]
         public IActionResult Index()
