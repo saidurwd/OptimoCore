@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using OptimoCore.Models;
+using ProductCatalog.Models;
 
-namespace OptimoCore.Controllers
+namespace ProductCatalog.Controllers
 {
     public class HomeController : Controller
     {

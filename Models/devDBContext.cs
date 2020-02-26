@@ -15,7 +15,9 @@ namespace OptimoCore.Data
         {
         }
 
+        public DbSet<ProductCatalog.Models.Company> Company { get; set; }
         //public DbSet<OptimoCore.Models.Product> Product { get; set; }
+        //public DbSet<ProductCatalog.Models.Employee> tblEmployees { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
