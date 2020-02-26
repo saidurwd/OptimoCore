@@ -11,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using OptimoCore.Data;
 using OptimoCore.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace OptimoCore
 {
@@ -27,7 +28,9 @@ namespace OptimoCore
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                    .AddEntityFrameworkStores<devDBContext>();
+            services.AddMvc();
             services.AddDbContext<devDBContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("devDBContext")));
         }
@@ -47,11 +50,12 @@ namespace OptimoCore
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            //app.UseMvcWithDefaultRoute();
 
             app.UseRouting();
 
             app.UseAuthorization();
-
+            app.UseAuthentication();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
