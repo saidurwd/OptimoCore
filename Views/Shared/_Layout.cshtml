@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity;
+@inject SignInManager<IdentityUser> signInManager;
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -43,16 +45,34 @@
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
                     <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a class="nav-link" asp-area="" asp-controller="User" asp-action="Create">New User</a>
-                </li>
+                </li>                
                 <li class="nav-item d-none d-sm-inline-block">
                     <a class="nav-link" asp-area="" asp-controller="Companies" asp-action="Index">Company</a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
                     <a class="nav-link" asp-area="" asp-controller="Companies" asp-action="Datatable">Company Datatables</a>
                 </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                @if (signInManager.IsSignedIn(User))
+                {
+                    <li class="nav-item d-none d-sm-inline-block">
+                        <form method="post" asp-action="logout" asp-controller="User">
+                            <button type="submit" class="nav-link btn btn-link py-0" style="width:auto;">
+                                Logout @User.Identity.Name
+                            </button>
+                        </form>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="User" asp-action="Create">New User</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="User" asp-action="login">Login</a>
+                    </li>
+                }
             </ul>
             <!-- SEARCH FORM -->
             <form class="form-inline ml-3">
