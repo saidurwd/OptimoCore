@@ -55,5 +55,27 @@ namespace OptimoCore.Controllers
             }
             return View(model);
         }
+
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> LoginAsync(Login model)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
+
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index", "home");
+                }
+                ModelState.AddModelError(string.Empty, "Invalid Login Attempt!");
+            }
+            return View(model);
+        }
     }
 }
