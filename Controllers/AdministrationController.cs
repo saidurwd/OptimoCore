@@ -18,6 +18,17 @@ namespace OptimoCore.Controllers
         }
 
         [HttpGet]
+        public IActionResult Index()
+        {             
+            return View();
+        }
+        public IActionResult Display()
+        {
+            var roles = roleManager.Roles;
+            return new JsonResult(roles);
+        }
+
+        [HttpGet]
         public IActionResult Create()
         {
             return View();
@@ -37,7 +48,7 @@ namespace OptimoCore.Controllers
 
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index", "home");
+                    return RedirectToAction("Index", "Administration");
                 }
 
                 foreach (IdentityError error in result.Errors)
