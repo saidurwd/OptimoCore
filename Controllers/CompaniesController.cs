@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -9,8 +10,9 @@ using OptimoCore.Data;
 using OptimoCore.Models;
 
 namespace ProductCatalog.Controllers
-{
+{    
     [Route("Companies")]
+    //[Authorize]
     public class CompaniesController : Controller
     {
         private readonly devDBContext _context;

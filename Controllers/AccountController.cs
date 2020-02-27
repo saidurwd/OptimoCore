@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using OptimoCore.Models;
@@ -10,12 +11,13 @@ using OptimoCore.Models;
 
 namespace OptimoCore.Controllers
 {
-    public class UserController : Controller
+    //[Authorize]
+    public class AccountController : Controller
     {
         private UserManager<IdentityUser> userManager;
         private SignInManager<IdentityUser> signInManager;
 
-        public UserController(UserManager<IdentityUser> userManager,
+        public AccountController(UserManager<IdentityUser> userManager,
                               SignInManager<IdentityUser> signInManager)
         {
             this.userManager = userManager;
@@ -57,13 +59,15 @@ namespace OptimoCore.Controllers
         }
 
         [HttpGet]
+        //[AllowAnonymous]
         public IActionResult Login()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> LoginAsync(Login model)
+        //[AllowAnonymous]
+        public async Task<IActionResult> LoginAsync(Login model, string returnUrl)
         {
             if (ModelState.IsValid)
             {
@@ -71,7 +75,14 @@ namespace OptimoCore.Controllers
 
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index", "home");
+                    if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+                    {
+                        return Redirect(returnUrl);
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "home");
+                    }
                 }
                 ModelState.AddModelError(string.Empty, "Invalid Login Attempt!");
             }

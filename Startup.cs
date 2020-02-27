@@ -12,6 +12,8 @@ using OptimoCore.Data;
 using OptimoCore.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
 
 namespace OptimoCore
 {
@@ -31,6 +33,13 @@ namespace OptimoCore
             services.AddIdentity<IdentityUser, IdentityRole>()
                     .AddEntityFrameworkStores<devDBContext>();
             services.AddMvc();
+            //services.AddMvc(options =>
+            //{
+            //    var policy = new AuthorizationPolicyBuilder()
+            //                    .RequireAuthenticatedUser()
+            //                    .Build();
+            //    options.Filters.Add(new AuthorizeFilter(policy));
+            //});
             services.AddDbContext<devDBContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("devDBContext")));
         }
