@@ -58,6 +58,20 @@ namespace OptimoCore.Controllers
             return View(model);
         }
 
+        [AcceptVerbs("Get", "post")]
+        public async Task<IActionResult> IsEmailInUse(string email)
+        {
+            var user = await userManager.FindByEmailAsync(email);
+            if (user == null)
+            {
+                return Json(true);
+            }
+            else
+            {
+                return Json($"Email {email} is already in use.");
+            }
+        }
+
         [HttpGet]
         //[AllowAnonymous]
         public IActionResult Login()
