@@ -55,6 +55,9 @@
                 <li class="nav-item d-none d-sm-inline-block">
                     <a class="nav-link" asp-area="" asp-controller="Administration" asp-action="Index">Roles</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="" asp-controller="Administration" asp-action="Users">Users</a>
+                </li>
             </ul>
             <ul class="navbar-nav ml-auto">
                 @if (signInManager.IsSignedIn(User))
@@ -68,10 +71,7 @@
                     </li>
                 }
                 else
-                {
-                    <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Create">New User</a>
-                    </li>
+                {                    
                     <li class="nav-item">
                         <a class="nav-link" asp-area="" asp-controller="Account" asp-action="login">Login</a>
                     </li>

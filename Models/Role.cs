@@ -9,6 +9,7 @@ namespace OptimoCore.Models
     public class Role
     {
         [Required]
+        [Display(Name = "Role Name")]
         public string RoleName { get; set; }
     }
 }

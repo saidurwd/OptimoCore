@@ -5,21 +5,36 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using OptimoCore.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace OptimoCore.Controllers
 {
     public class AdministrationController : Controller
     {
         private readonly RoleManager<IdentityRole> roleManager;
+        private readonly UserManager<IdentityUser> userManager;
 
-        public AdministrationController(RoleManager<IdentityRole> roleManager)
+        public AdministrationController(RoleManager<IdentityRole> roleManager,
+                                        UserManager<IdentityUser> userManager)
         {
             this.roleManager = roleManager;
+            this.userManager = userManager;
+        }
+
+        [HttpGet]
+        public IActionResult Users()
+        {
+            return View();
+        }
+        public IActionResult DisplayUsers()
+        {
+            var users = userManager.Users;
+            return new JsonResult(users);
         }
 
         [HttpGet]
         public IActionResult Index()
-        {             
+        {
             return View();
         }
         public IActionResult Display()
@@ -58,6 +73,5 @@ namespace OptimoCore.Controllers
             }
             return View();
         }
-
     }
 }

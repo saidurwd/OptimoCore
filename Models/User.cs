@@ -24,5 +24,9 @@ namespace OptimoCore.Models
             ErrorMessage = "Password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
+        [Phone]
+        [Display(Name = "Phone Number")]
+        public string PhoneNumber { get; set; }
+
     }
 }
