@@ -12,14 +12,18 @@ namespace OptimoCore.Models
         public string Id { get; set; }
 
         [Required]
+        [Display(Name = "Name")]
+        public string FullName { get; set; }
+
+        [Required]
         public string UserName { get; set; }
 
-        [Required][EmailAddress]
+        [Required]
+        [EmailAddress]
         public string Email { get; set; }
 
         [Phone]
         [Display(Name = "Phone Number")]
         public string PhoneNumber { get; set; }
-
     }
 }

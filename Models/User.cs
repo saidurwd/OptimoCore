@@ -10,6 +10,10 @@ namespace OptimoCore.Models
     public class User
     {
         [Required]
+        [Display(Name = "Name")]
+        public string FullName { get; set; }
+
+        [Required]
         [EmailAddress]
         [Remote(action: "IsEmailInUse", controller: "Account")]
         public string Email { get; set; }
