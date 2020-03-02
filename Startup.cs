@@ -30,7 +30,7 @@ namespace OptimoCore
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddIdentity<IdentityUser, IdentityRole>()
+            services.AddIdentity<ApplicationUser, IdentityRole>()
                     .AddEntityFrameworkStores<devDBContext>();
             services.AddMvc();
             //services.AddMvc(options =>

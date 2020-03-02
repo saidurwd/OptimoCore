@@ -8,7 +8,7 @@ using OptimoCore.Models;
 
 namespace OptimoCore.Data
 {
-    public class devDBContext : IdentityDbContext
+    public class devDBContext : IdentityDbContext<ApplicationUser>
     {
         public devDBContext(DbContextOptions<devDBContext> options)
             : base(options)
