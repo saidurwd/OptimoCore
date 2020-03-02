@@ -23,5 +23,9 @@ namespace OptimoCore.Data
         {
             base.OnModelCreating(builder);
         }
+        //public DbSet<OptimoCore.Models.Product> Product { get; set; }
+        //public DbSet<ProductCatalog.Models.Employee> tblEmployees { get; set; }
+
+        public DbSet<OptimoCore.Models.Country> Country { get; set; }
     }
 }

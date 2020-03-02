@@ -25,5 +25,11 @@ namespace OptimoCore.Models
         [Phone]
         [Display(Name = "Phone Number")]
         public string PhoneNumber { get; set; }
+
+        [Display(Name = "Country")]
+        public int Country { get; set; }
+
+        [Display(Name = "Address")]
+        public string Address { get; set; }
     }
 }

@@ -48,6 +48,8 @@ namespace OptimoCore.Controllers
                     Email = model.Email,
                     PhoneNumber = model.PhoneNumber,
                     FullName = model.FullName,
+                    Country = model.Country,
+                    Address = model.Address,
                 };
                 var result = await userManager.CreateAsync(user, model.Password);
 
@@ -96,6 +98,8 @@ namespace OptimoCore.Controllers
                 UserName = user.UserName,
                 PhoneNumber = user.PhoneNumber,
                 FullName = user.FullName,
+                Country = user.Country,
+                Address = user.Address,
             };
             return View(model);
         }
@@ -116,6 +120,8 @@ namespace OptimoCore.Controllers
                 user.FullName = model.FullName;
                 user.Email = model.Email;
                 user.PhoneNumber = model.PhoneNumber;
+                user.Country = model.Country;
+                user.Address = model.Address;
 
                 var result = await userManager.UpdateAsync(user);
 
