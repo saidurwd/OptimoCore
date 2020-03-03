@@ -69,7 +69,7 @@
                     { title: 'Phone Number', data: 'phoneNumber' },
                     {
                         title: 'Actions',
-                        "render": function (data, type, full, meta) { return '</a> <a class="btn btn-primary btn-xs" href="/Account/Edit/' + full.id + '"><i class="fa fa-edit"></i></a> <a class="btn btn-danger btn-xs" href="/Account/Delete/' + full.id + '"><i class="fa fa-trash"></i></a>'; }
+                        "render": function (data, type, full, meta) { return '</a> <a class="btn btn-primary btn-xs" href="/Account/Edit/' + full.id + '"><i class="fa fa-edit"></i></a> <a class="btn btn-warning btn-xs" href="/Account/UpdatePassword/' + full.id + '"><i class="fa fa-lock"></i></a> <a class="btn btn-danger btn-xs" href="/Account/Delete/' + full.id + '"><i class="fa fa-trash"></i></a>'; }
                     },
                 ]
             });
