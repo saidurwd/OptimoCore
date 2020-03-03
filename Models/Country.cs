@@ -16,4 +16,10 @@ namespace OptimoCore.Models
         public string Ordering { get; set; }
         public string Status { get; set; }
     }
+
+    public enum Status
+    {
+        Active,
+        Inactive
+    }
 }
