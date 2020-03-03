@@ -20,9 +20,20 @@ namespace OptimoCore.Controllers
         }
 
         // GET: States
-        public async Task<IActionResult> Index()
+        //public async Task<IActionResult> Index()
+        //{
+        //    return View(await _context.State.ToListAsync());
+        //}
+
+        public IActionResult Index()
         {
-            return View(await _context.State.ToListAsync());
+            return View();
+        }
+
+        public IActionResult Display()
+        {
+            var states = _context.State.ToList();
+            return new JsonResult(states);
         }
 
         // GET: States/Details/5
