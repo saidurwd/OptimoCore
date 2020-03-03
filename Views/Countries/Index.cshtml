@@ -1,59 +1,77 @@
 ﻿@model IEnumerable<OptimoCore.Models.Country>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Countries";
 }
+<!-- Content Header (Page header) -->
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-dark">@ViewData["Title"]</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><i class="fa fa-home"></i> <a asp-action="Index" asp-controller="Home">Home</a></li>
+                    <li class="breadcrumb-item active">@ViewData["Title"]</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+<section class="content">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">@ViewData["Title"]</h3>
+                    <div class="card-tools">
+                        <div class="input-group input-group-sm" style="width: 150px;">
+                            <a asp-controller="Countries" asp-action="Create" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> NEW COUNTRY</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <table id="tableCountries" class="table table-bordered table-striped">
+                    </table>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>
 
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.CountryName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Country3Code)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Country2Code)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Ordering)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Status)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CountryName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Country3Code)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Country2Code)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Ordering)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
+@section Scripts{
+    <script src="~/plugins/datatables/jquery.dataTables.js"></script>
+    <script src="~/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+    <script>
+        $(function () {
+            $('#tableCountries').DataTable({
+                pageLength: 25,
+                ajax: {
+                    url: '/Countries/Display',
+                    dataSrc: '',
+                },
+                columnDefs: [
+                    { "searchable": false, "targets": 4 }
+                ],
+                columns: [
+                    { title: 'Country Name', data: 'countryName' },
+                    { title: 'Code 3', data: 'country3Code' },
+                    { title: 'Code 2', data: 'country2Code' },
+                    { title: 'Ordering', data: 'ordering' },
+                    { title: 'Status', data: 'status' },
+                    {
+                        title: 'Actions',
+                        "render": function (data, type, full, meta) { return '<a class="btn btn-info btn-xs" href="/Countries/Details/' + full.id + '"><i class="fa fa-eye"></i></a> <a class="btn btn-primary btn-xs" href="/Countries/Edit/' + full.id + '"><i class="fa fa-edit"></i></a> <a class="btn btn-danger btn-xs" href="/Companies/Delete/' + full.id + '"><i class="fa fa-trash"></i></a>'; }
+                    },
+                ]
+            });
+        });
+    </script>
 }
-    </tbody>
-</table>

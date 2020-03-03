@@ -8,6 +8,8 @@ namespace OptimoCore.Models
     {
         [Key]
         public int Id { get; set; }
+        [Required]
+        [Display(Name = "Country Name")]
         public string CountryName { get; set; }
         public string Country3Code { get; set; }
         public string Country2Code { get; set; }
