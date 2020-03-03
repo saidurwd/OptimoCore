@@ -13,8 +13,8 @@
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a asp-action="Index">@ViewData["Title"]</a></li>
-                    <li class="breadcrumb-item active">Index</li>
+                    <li class="breadcrumb-item"><i class="fa fa-home"></i> <a asp-action="Index" asp-controller="Home">Home</a></li>
+                    <li class="breadcrumb-item active">Users</li>
                 </ol>
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -28,8 +28,8 @@
                 <div class="card-header">
                     <h3 class="card-title">@ViewData["Title"]</h3>
                     <div class="card-tools">
-                        <div class="input-group input-group-sm" style="width: 150px;">
-                            <a asp-controller="Account" asp-action="Create" class="btn btn-primary"><i class="fa fa-plus"></i> NEW USER</a>
+                        <div class="input-group input-group-sm">
+                            <a asp-controller="Account" asp-action="Create" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> NEW USER</a>
                         </div>
                     </div>
                 </div>
@@ -69,7 +69,7 @@
                     { title: 'Phone Number', data: 'phoneNumber' },
                     {
                         title: 'Actions',
-                        "render": function (data, type, full, meta) { return '</a> <a class="btn btn-primary btn-xs" href="/Account/Edit/' + full.id + '"><i class="fa fa-edit"></i></a> <form asp-action="Delete" asp-controller="Account"><input type="hidden" asp-for="Id" /><input type="submit" value="Delete" class="btn btn-danger" /></form>'; }
+                        "render": function (data, type, full, meta) { return '</a> <a class="btn btn-primary btn-xs" href="/Account/Edit/' + full.id + '"><i class="fa fa-edit"></i></a> <a class="btn btn-danger btn-xs" href="/Account/Delete/' + full.id + '"><i class="fa fa-trash"></i></a>'; }
                     },
                 ]
             });

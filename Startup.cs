@@ -33,13 +33,13 @@ namespace OptimoCore
             services.AddIdentity<ApplicationUser, IdentityRole>()
                     .AddEntityFrameworkStores<devDBContext>();
             services.AddMvc();
-            //services.AddMvc(options =>
-            //{
-            //    var policy = new AuthorizationPolicyBuilder()
-            //                    .RequireAuthenticatedUser()
-            //                    .Build();
-            //    options.Filters.Add(new AuthorizeFilter(policy));
-            //});
+            services.AddMvc(options =>
+            {
+                var policy = new AuthorizationPolicyBuilder()
+                                .RequireAuthenticatedUser()
+                                .Build();
+                options.Filters.Add(new AuthorizeFilter(policy));
+            });
             services.AddDbContext<devDBContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("devDBContext")));
         }

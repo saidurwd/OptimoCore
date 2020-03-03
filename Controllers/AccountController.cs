@@ -183,14 +183,14 @@ namespace OptimoCore.Controllers
         }
 
         [HttpGet]
-        //[AllowAnonymous]
+        [AllowAnonymous]
         public IActionResult Login()
         {
             return View();
         }
 
         [HttpPost]
-        //[AllowAnonymous]
+        [AllowAnonymous]
         public async Task<IActionResult> LoginAsync(Login model, string returnUrl)
         {
             if (ModelState.IsValid)
