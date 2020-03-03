@@ -11,7 +11,8 @@
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a asp-action="Index">@ViewData["Title"]</a></li>
+                    <li class="breadcrumb-item"><i class="fa fa-home"></i> <a asp-action="Index" asp-controller="Home">Home</a></li>
+                    <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Administration">Roles</a></li>
                     <li class="breadcrumb-item active">New Role</li>
                 </ol>
             </div><!-- /.col -->
@@ -28,7 +29,6 @@
                     <h3 class="card-title">New Role</h3>
                     <div class="card-tools">
                         <div class="input-group input-group-sm">
-                            <a asp-controller="Administration" asp-action="Create" class="btn btn-primary"><i class="fa fa-home"></i> BACK ROLE</a>
                         </div>
                     </div>
                 </div>

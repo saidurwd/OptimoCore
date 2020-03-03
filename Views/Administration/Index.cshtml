@@ -1,7 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Identity;
 @model IEnumerable<IdentityRole>
 @{
-    ViewBag.Title = "All Roles";
+    ViewBag.Title = "Roles";
 }
 
 <!-- Content Header (Page header) -->
@@ -13,8 +13,8 @@
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a asp-action="Index">@ViewData["Title"]</a></li>
-                    <li class="breadcrumb-item active">Index</li>
+                    <li class="breadcrumb-item"><i class="fa fa-home"></i> <a asp-action="Index" asp-controller="Home">Home</a></li>
+                    <li class="breadcrumb-item active">Roles</li>
                 </ol>
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -29,7 +29,7 @@
                     <h3 class="card-title">@ViewData["Title"]</h3>
                     <div class="card-tools">
                         <div class="input-group input-group-sm" style="width: 150px;">
-                            <a asp-controller="Administration" asp-action="Create" class="btn btn-primary"><i class="fa fa-plus"></i> NEW ROLE</a>
+                            <a asp-controller="Administration" asp-action="Create" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> NEW ROLE</a>
                         </div>
                     </div>
                 </div>
