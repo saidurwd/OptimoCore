@@ -19,12 +19,6 @@ namespace OptimoCore.Controllers
             _context = context;
         }
 
-        // GET: States
-        //public async Task<IActionResult> Index()
-        //{
-        //    return View(await _context.State.ToListAsync());
-        //}
-
         public IActionResult Index()
         {
             return View();
@@ -32,7 +26,7 @@ namespace OptimoCore.Controllers
 
         public IActionResult Display()
         {
-            var states = _context.State.ToList();
+            var states = _context.State.FromSqlRaw<State>("spGetStates").ToList();
             return new JsonResult(states);
         }
 

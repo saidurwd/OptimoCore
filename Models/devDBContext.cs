@@ -14,22 +14,13 @@ namespace OptimoCore.Data
             : base(options)
         {
         }
-
-        public DbSet<OptimoCore.Models.Company> Company { get; set; }
-        //public DbSet<OptimoCore.Models.Product> Product { get; set; }
-        //public DbSet<ProductCatalog.Models.Employee> tblEmployees { get; set; }
-
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
         }
-        //public DbSet<OptimoCore.Models.Product> Product { get; set; }
+        public DbSet<OptimoCore.Models.Company> Company { get; set; }
         //public DbSet<ProductCatalog.Models.Employee> tblEmployees { get; set; }
-
         public DbSet<OptimoCore.Models.Country> Country { get; set; }
-        //public DbSet<OptimoCore.Models.Product> Product { get; set; }
-        //public DbSet<ProductCatalog.Models.Employee> tblEmployees { get; set; }
-
         public DbSet<OptimoCore.Models.State> State { get; set; }
     }
 }

@@ -17,6 +17,7 @@ namespace OptimoCore.Models
         public string State2Code { get; set; }
         public int Ordering { get; set; }
         public string Status { get; set; }
+        public string countryName { get; set; }
     }
 
     public enum StateStatus
