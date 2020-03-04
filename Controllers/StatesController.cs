@@ -57,6 +57,10 @@ namespace OptimoCore.Controllers
         // GET: States/Create
         public IActionResult Create()
         {
+            List<Country> countryList = new List<Country>();
+            countryList = (from c in _context.Country select c).ToList();
+            countryList.Insert(0, new Country { Id = 0, CountryName = "Select Country" });
+            ViewBag.countries = countryList;
             return View();
         }
 
@@ -89,6 +93,12 @@ namespace OptimoCore.Controllers
             {
                 return NotFound();
             }
+
+            List<Country> countryList = new List<Country>();
+            countryList = (from c in _context.Country select c).ToList();
+            countryList.Insert(0, new Country { Id = 0, CountryName = "Select Country" });
+            ViewBag.countries = countryList;
+
             return View(state);
         }
 
