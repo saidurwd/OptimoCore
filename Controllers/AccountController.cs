@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using OptimoCore.Models;
+using OptimoCore.Data;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -17,11 +18,14 @@ namespace OptimoCore.Controllers
     {
         private UserManager<ApplicationUser> userManager;
         private SignInManager<ApplicationUser> signInManager;
+        private readonly devDBContext _context;
         public AccountController(UserManager<ApplicationUser> userManager,
-                              SignInManager<ApplicationUser> signInManager)
+                              SignInManager<ApplicationUser> signInManager,
+                                        devDBContext context)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
+            _context = context;
         }
 
         [HttpPost]
@@ -34,6 +38,10 @@ namespace OptimoCore.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+            List<Country> countryList = new List<Country>();
+            countryList = (from c in _context.Country select c).ToList();
+            countryList.Insert(0, new Country { Id = 0, CountryName = "Select Country" });
+            ViewBag.countries = countryList;
             return View();
         }
 
