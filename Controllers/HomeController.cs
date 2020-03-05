@@ -24,6 +24,9 @@ namespace ProductCatalog.Controllers
         //[AllowAnonymous]
         public IActionResult Index()
         {
+            string userAccess = AuthAccess.HelloDhaka(this.ControllerContext.RouteData.Values["controller"].ToString()
+                                                     , this.ControllerContext.RouteData.Values["action"].ToString());
+            ViewData["userAccess"] = userAccess;
             return View();
         }
 

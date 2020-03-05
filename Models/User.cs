@@ -1,9 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using OptimoCore.Data;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using OptimoCore.Models;
 
 namespace OptimoCore.Models
 {
@@ -38,5 +42,33 @@ namespace OptimoCore.Models
         [Display(Name = "Address")]
         public string Address { get; set; }
 
+        public static string HelloDhaka()
+        {
+            return "This is hello function!";
+        }
     }
+
+    public class AuthAccess
+    {
+        private readonly devDBContext _context;
+
+        public AuthAccess(devDBContext context)
+        {           
+            _context = context;
+        }
+
+        public string HelloDhaka2()
+        {
+            var returnData = _context.State.FromSqlRaw<State>("spGetStatesById").ToList().FirstOrDefault();
+            return Convert.ToString(returnData);
+        }
+
+        public static string HelloDhaka(string controller, string action)
+        {
+            return "Controller: " + controller + " and Action: " + action;
+
+        }
+    }
+
+
 }
