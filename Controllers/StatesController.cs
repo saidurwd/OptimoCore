@@ -19,6 +19,7 @@ namespace OptimoCore.Controllers
             _context = context;
         }
 
+        //[AuthorizedAction]
         public IActionResult Index()
         {
             return View();

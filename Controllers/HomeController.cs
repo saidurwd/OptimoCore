@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using OptimoCore.Models;
-using OptimoCore.Models;
 
 namespace ProductCatalog.Controllers
 {
@@ -22,11 +21,13 @@ namespace ProductCatalog.Controllers
         }
 
         //[AllowAnonymous]
+        [AuthorizedAction]
         public IActionResult Index()
         {
-            string userAccess = AuthAccess.HelloDhaka(this.ControllerContext.RouteData.Values["controller"].ToString()
-                                                     , this.ControllerContext.RouteData.Values["action"].ToString());
-            ViewData["userAccess"] = userAccess;
+            //string userAccess = AuthAccess.HelloDhaka(this.ControllerContext.RouteData.Values["controller"].ToString()
+            //                                         , this.ControllerContext.RouteData.Values["action"].ToString());
+            //ViewData["userAccess"] = userAccess;
+            ViewData["userAccess"] = "Welcome to OptomoCore";
             return View();
         }
 
