@@ -1,0 +1,72 @@
+﻿@model OptimoCore.Models.AuthAction
+
+@{
+    ViewData["Title"] = "Edit Action";
+}
+<!-- Content Header (Page header) -->
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-dark">@ViewData["Title"]</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><i class="fa fa-home"></i> <a asp-action="Index" asp-controller="Home">Home</a></li>
+                    <li class="breadcrumb-item"><a asp-action="Index" asp-controller="AuthActions">Actions</a></li>
+                    <li class="breadcrumb-item active">@ViewData["Title"]</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+
+<section class="content">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">@ViewData["Title"]</h3>
+                    <div class="card-tools">
+                        <div class="input-group input-group-sm">
+                        </div>
+                    </div>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <form asp-action="Edit">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="Id" />
+                        <div class="form-group">
+                            <label asp-for="ControllerId" class="control-label"></label>
+                            <input asp-for="ControllerId" class="form-control" />
+                            <span asp-validation-for="ControllerId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="ActionTitle" class="control-label"></label>
+                            <input asp-for="ActionTitle" class="form-control" />
+                            <span asp-validation-for="ActionTitle" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="ActionName" class="control-label"></label>
+                            <input asp-for="ActionName" class="form-control" />
+                            <span asp-validation-for="ActionName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Save" class="btn btn-primary" />
+                        </div>
+                    </form>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+            <!-- /.card -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
