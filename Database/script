@@ -1,0 +1,18 @@
+USE [OptimoCore]
+GO
+/****** Object:  StoredProcedure [dbo].[[spGetActions]]    Script Date: 3/12/2020 11:16:05 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[spGetActions]
+AS
+BEGIN 
+SELECT	A.[Id]
+		,C.[Title]
+		,A.[ControllerId]
+		,A.[ActionTitle]
+        ,A.[ActionName]
+    FROM [AuthAction] A 
+    LEFT JOIN [AuthController] C ON C.Id=A.ControllerId
+    END
