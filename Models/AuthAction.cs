@@ -17,6 +17,6 @@ namespace OptimoCore.Models
         [Required]
         [Display(Name = "Action")]
         public string ActionName { get; set; }
-        public string title { get; set; }
+        //public string title { get; set; }
     }
 }

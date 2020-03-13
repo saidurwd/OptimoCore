@@ -26,7 +26,21 @@ namespace OptimoCore.Controllers
         public IActionResult Display()
         {
             //var actions = _context.AuthAction.ToList();
-            var actions = _context.AuthAction.FromSqlRaw<AuthAction>("spGetActions").ToList();
+            //var actions = _context.AuthAction.FromSqlRaw<AuthAction>("spGetActions").ToList();
+            var actions = _context.AuthAction
+                        .Join(
+                            _context.AuthController,
+                            action => action.ControllerId,
+                            controller => controller.Id,
+                            (action, controller) => new
+                            {
+                                Id = action.Id,
+                                Title = controller.Title,
+                                ControllerId = action.ControllerId,
+                                ActionTitle = action.ActionTitle,
+                                ActionName = action.ActionName
+                            }
+                        ).ToList();
             return new JsonResult(actions);
         }
 
