@@ -23,5 +23,10 @@ namespace OptimoCore.Models
         [Required]
         [Display(Name = "Access")]
         public string Access { get; set; }
+
+        public static implicit operator int(Auth v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

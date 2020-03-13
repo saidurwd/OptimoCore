@@ -12,6 +12,9 @@ using System.ComponentModel.DataAnnotations;
 using OptimoCore.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Data.SqlClient;
+using System.Net.Http;
+
 
 namespace OptimoCore.Models
 {
@@ -22,21 +25,31 @@ namespace OptimoCore.Models
 
         }
 
+        [Obsolete]
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             //get dbcontext
             var db = filterContext.HttpContext.RequestServices.GetRequiredService<devDBContext>();
-            //get current controller and action 
-            var controllerName = ((ControllerBase)filterContext.Controller).ControllerContext.ActionDescriptor.ControllerName;
-            var actionName = ((ControllerBase)filterContext.Controller).ControllerContext.ActionDescriptor.ActionName;
-            //execute query and check access for this controller and action 
-            //var students = db.State.FromSqlRaw("spGetStatesById").FirstOrDefault();
-            var blogs = db.Country
-                        .FromSqlRaw("SELECT * FROM dbo.Country")
-                        .ToList();
+            //get current Role, Controller and Action            
+            int role = 1;
+            string controllerName = ((ControllerBase)filterContext.Controller).ControllerContext.ActionDescriptor.ControllerName;
+            string actionName = ((ControllerBase)filterContext.Controller).ControllerContext.ActionDescriptor.ActionName;
 
-            int x = 0;
-            if (x == 0)
+            //var blogs = db.Country
+            //            .FromSqlRaw("SELECT * FROM dbo.Country")
+            //            .ToList();
+            //var access = db.Database.ExecuteSqlCommand($"DECLARE @ToralRows int; EXEC spGetAccess {role},{controllerName},{actionName}, @ToralRows OUT");
+            //var access = db.Auth.FromSqlRaw($"spGetAccess {role},'{controllerName}','{actionName}'").ToList().FirstOrDefault();
+
+            var access = db.Auth
+                        .FromSqlRaw("SELECT * FROM dbo.Auth")
+                        .Where(e => e.RoleId == 1)
+                        .Where(e => e.ControllerName == controllerName)
+                        .Where(e => e.ActionName == actionName)
+                        .Where(e => e.Access == "Yes").ToList().FirstOrDefault().Access.ToString();
+            //var accessValue = access.Access.ToString();
+
+            if (access == "Yes")
             {
                 filterContext.Result = new RedirectToRouteResult(
                     new RouteValueDictionary { { "controller", "Home" }, { "action", "Privacy" } });
