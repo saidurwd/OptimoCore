@@ -11,9 +11,9 @@ namespace OptimoCore.Models
     {
         public string FullName { get; set; }
         public int Country { get; set; }
-        public string City { get; set; }
+        public int State { get; set; }
         public string Address { get; set; }
         [Required]
-        public string Role { get; set; }
+        public int Role { get; set; }
     }
 }

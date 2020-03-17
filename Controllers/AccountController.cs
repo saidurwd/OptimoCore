@@ -38,10 +38,21 @@ namespace OptimoCore.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+            //get Countries list 
             List<Country> countryList = new List<Country>();
             countryList = (from c in _context.Country select c).ToList();
             countryList.Insert(0, new Country { Id = 0, CountryName = "Select Country" });
             ViewBag.countries = countryList;
+            //get States list 
+            List<State> stateList = new List<State>();
+            stateList = (from c in _context.State select c).ToList();
+            stateList.Insert(0, new State { Id = 0, StateName = "Select State" });
+            ViewBag.states = stateList;
+            //get Roles list 
+            List<Role> roleList = new List<Role>();
+            roleList = (from c in _context.Role select c).ToList();
+            roleList.Insert(0, new Role { Id = 0, RoleName = "Select Role" });
+            ViewBag.roles = roleList;
             return View();
         }
 
@@ -58,6 +69,8 @@ namespace OptimoCore.Controllers
                     FullName = model.FullName,
                     Country = model.Country,
                     Address = model.Address,
+                    State = model.State,
+                    Role = model.Role,
                 };
                 var result = await userManager.CreateAsync(user, model.Password);
 
@@ -93,6 +106,22 @@ namespace OptimoCore.Controllers
         {
             var user = await userManager.FindByIdAsync(id);
 
+            //get Countries list 
+            List<Country> countryList = new List<Country>();
+            countryList = (from c in _context.Country select c).ToList();
+            countryList.Insert(0, new Country { Id = 0, CountryName = "Select Country" });
+            ViewBag.countries = countryList;
+            //get States list 
+            List<State> stateList = new List<State>();
+            stateList = (from c in _context.State select c).ToList();
+            stateList.Insert(0, new State { Id = 0, StateName = "Select State" });
+            ViewBag.states = stateList;
+            //get Roles list 
+            List<Role> roleList = new List<Role>();
+            roleList = (from c in _context.Role select c).ToList();
+            roleList.Insert(0, new Role { Id = 0, RoleName = "Select Role" });
+            ViewBag.roles = roleList;
+
             if (user == null)
             {
                 ViewBag.ErrorMessage = $"User with Id = {id} cannot be found.";
@@ -108,6 +137,8 @@ namespace OptimoCore.Controllers
                 FullName = user.FullName,
                 Country = user.Country,
                 Address = user.Address,
+                State = user.State,
+                Role = user.Role,
             };
             return View(model);
         }
@@ -130,6 +161,8 @@ namespace OptimoCore.Controllers
                 user.PhoneNumber = model.PhoneNumber;
                 user.Country = model.Country;
                 user.Address = model.Address;
+                user.State = model.State;
+                user.Role = model.Role;
 
                 var result = await userManager.UpdateAsync(user);
 

@@ -54,13 +54,26 @@
                         </div>
                         <div class="form-group">
                             <label asp-for="Country"></label>
-                            <input asp-for="Country" class="form-control" />
+                            <select asp-for="Country" asp-items="@(new SelectList(ViewBag.countries,"Id","CountryName"))" class="form-control">
+                            </select>
                             <span asp-validation-for="Country" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="State"></label>
+                            <select asp-for="State" asp-items="@(new SelectList(ViewBag.states,"Id","StateName"))" class="form-control">
+                            </select>
+                            <span asp-validation-for="State" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label asp-for="Address"></label>
                             <input asp-for="Address" class="form-control" />
                             <span asp-validation-for="Address" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Role"></label>
+                            <select asp-for="Role" asp-items="@(new SelectList(ViewBag.roles,"Id","RoleName"))" class="form-control">
+                            </select>
+                            <span asp-validation-for="Role" class="text-danger"></span>
                         </div>
                         <button type="submit" class="btn btn-primary">Update</button>
                         <a asp-action="Users" asp-controller="Administration" class="btn btn-primary">Cancel</a>

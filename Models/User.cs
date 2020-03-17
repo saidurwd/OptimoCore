@@ -38,13 +38,10 @@ namespace OptimoCore.Models
 
         [Display(Name = "Country")]
         public int Country { get; set; }
+        public int State { get; set; }
 
         [Display(Name = "Address")]
         public string Address { get; set; }
-
-        public static string HelloDhaka()
-        {
-            return "This is hello function!";
-        }
+        public int Role { get; set; }
     }
 }

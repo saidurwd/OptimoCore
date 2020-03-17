@@ -28,8 +28,10 @@ namespace OptimoCore.Models
 
         [Display(Name = "Country")]
         public int Country { get; set; }
-
+        public int State { get; set; }
         [Display(Name = "Address")]
         public string Address { get; set; }
+        [Required]
+        public int Role { get; set; }
     }
 }
