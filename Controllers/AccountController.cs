@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using OptimoCore.Models;
 using OptimoCore.Data;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -240,6 +242,13 @@ namespace OptimoCore.Controllers
 
                 if (result.Succeeded)
                 {
+                    //get loggedin user data
+                    //var userData = await _context.Account
+                    //            .FirstOrDefaultAsync(m => m.Email == model.Email);
+                    HttpContext.Session.SetString("Email", model.Email);
+                    //HttpContext.Session.SetString("Role", Convert.ToInt32(userData.Role).ToString());
+                    //HttpContext.Session.SetString("FullName", userData.FullName);
+
                     if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
                     {
                         return Redirect(returnUrl);

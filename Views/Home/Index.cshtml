@@ -1,6 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+@using Microsoft.AspNetCore.Http;
 <!-- Content Header (Page header) -->
 <div class="content-header">
     <div class="container-fluid">
@@ -21,6 +22,8 @@
 <!-- Main content -->
 <section class="content">
     <div class="container-fluid">
+        <h1>@ViewData["Name"]</h1>
+        <h2>Welcome @Context.Session.GetString("Email")</h2>
         <h3>@ViewData["userAccess"]</h3>
     </div><!-- /.container-fluid -->
 </section>

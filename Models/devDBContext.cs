@@ -10,6 +10,7 @@ namespace OptimoCore.Data
 {
     public class devDBContext : IdentityDbContext<ApplicationUser>
     {
+
         public devDBContext(DbContextOptions<devDBContext> options)
             : base(options)
         {
@@ -27,5 +28,6 @@ namespace OptimoCore.Data
         public DbSet<OptimoCore.Models.AuthAction> AuthAction { get; set; }
         public DbSet<OptimoCore.Models.Auth> Auth { get; set; }
         public DbSet<OptimoCore.Models.Role> Role { get; set; }
+        public DbSet<OptimoCore.Models.Account> Account { get; set; }
     }
 }

@@ -32,6 +32,9 @@ namespace OptimoCore
             services.AddControllersWithViews();
             services.AddIdentity<ApplicationUser, IdentityRole>()
                     .AddEntityFrameworkStores<devDBContext>();
+            services.AddSession(options => {
+                options.IdleTimeout = TimeSpan.FromMinutes(3600);//1 day   
+            });
             services.AddMvc();
             services.AddMvc(options =>
             {
@@ -58,6 +61,7 @@ namespace OptimoCore
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
+            app.UseSession();
             app.UseStaticFiles();
             //app.UseMvcWithDefaultRoute();
 
