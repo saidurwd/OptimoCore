@@ -26,5 +26,6 @@ namespace OptimoCore.Data
         public DbSet<OptimoCore.Models.AuthController> AuthController { get; set; }
         public DbSet<OptimoCore.Models.AuthAction> AuthAction { get; set; }
         public DbSet<OptimoCore.Models.Auth> Auth { get; set; }
+        public DbSet<OptimoCore.Models.Role> Role { get; set; }
     }
 }

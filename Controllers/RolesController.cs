@@ -10,16 +10,21 @@ using OptimoCore.Models;
 
 namespace OptimoCore.Controllers
 {
-    public class StatesController : Controller
+    public class RolesController : Controller
     {
         private readonly devDBContext _context;
 
-        public StatesController(devDBContext context)
+        public RolesController(devDBContext context)
         {
             _context = context;
         }
 
-        //[AuthorizedAction]
+        // GET: Roles
+        //public async Task<IActionResult> Index()
+        //{
+        //    return View(await _context.Role.ToListAsync());
+        //}
+
         public IActionResult Index()
         {
             return View();
@@ -27,27 +32,11 @@ namespace OptimoCore.Controllers
 
         public IActionResult Display()
         {
-            //var stateList = _context.State.FromSqlRaw<State>("spGetStates").ToList();
-            var stateList = _context.State
-                        .Join(
-                            _context.Country,
-                            states => states.CountryId,
-                            countries => countries.Id,
-                            (states, countries) => new
-                            {
-                                Id = states.Id,
-                                CountryName = countries.CountryName,
-                                StateName = states.StateName,
-                                State3Code = states.State3Code,
-                                State2Code = states.State2Code,
-                                Ordering = states.Ordering,
-                                Status = states.Status,
-                            }
-                        ).ToList();
-            return new JsonResult(stateList);
+            var rolesList = _context.Role.ToList();
+            return new JsonResult(rolesList);
         }
 
-        // GET: States/Details/5
+        // GET: Roles/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -55,43 +44,39 @@ namespace OptimoCore.Controllers
                 return NotFound();
             }
 
-            var state = await _context.State
+            var role = await _context.Role
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (state == null)
+            if (role == null)
             {
                 return NotFound();
             }
 
-            return View(state);
+            return View(role);
         }
 
-        // GET: States/Create
+        // GET: Roles/Create
         public IActionResult Create()
         {
-            List<Country> countryList = new List<Country>();
-            countryList = (from c in _context.Country select c).ToList();
-            countryList.Insert(0, new Country { Id = 0, CountryName = "Select Country" });
-            ViewBag.countries = countryList;
             return View();
         }
 
-        // POST: States/Create
+        // POST: Roles/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,CountryId,StateName,State3Code,State2Code,Ordering,Status")] State state)
+        public async Task<IActionResult> Create([Bind("Id,RoleName,Details,Status")] Role role)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(state);
+                _context.Add(role);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(state);
+            return View(role);
         }
 
-        // GET: States/Edit/5
+        // GET: Roles/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -99,28 +84,22 @@ namespace OptimoCore.Controllers
                 return NotFound();
             }
 
-            var state = await _context.State.FindAsync(id);
-            if (state == null)
+            var role = await _context.Role.FindAsync(id);
+            if (role == null)
             {
                 return NotFound();
             }
-
-            List<Country> countryList = new List<Country>();
-            countryList = (from c in _context.Country select c).ToList();
-            countryList.Insert(0, new Country { Id = 0, CountryName = "Select Country" });
-            ViewBag.countries = countryList;
-
-            return View(state);
+            return View(role);
         }
 
-        // POST: States/Edit/5
+        // POST: Roles/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,CountryId,StateName,State3Code,State2Code,Ordering,Status")] State state)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,RoleName,Details,Status")] Role role)
         {
-            if (id != state.Id)
+            if (id != role.Id)
             {
                 return NotFound();
             }
@@ -129,12 +108,12 @@ namespace OptimoCore.Controllers
             {
                 try
                 {
-                    _context.Update(state);
+                    _context.Update(role);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!StateExists(state.Id))
+                    if (!RoleExists(role.Id))
                     {
                         return NotFound();
                     }
@@ -145,10 +124,10 @@ namespace OptimoCore.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(state);
+            return View(role);
         }
 
-        // GET: States/Delete/5
+        // GET: Roles/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -156,30 +135,30 @@ namespace OptimoCore.Controllers
                 return NotFound();
             }
 
-            var state = await _context.State
+            var role = await _context.Role
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (state == null)
+            if (role == null)
             {
                 return NotFound();
             }
 
-            return View(state);
+            return View(role);
         }
 
-        // POST: States/Delete/5
+        // POST: Roles/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var state = await _context.State.FindAsync(id);
-            _context.State.Remove(state);
+            var role = await _context.Role.FindAsync(id);
+            _context.Role.Remove(role);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool StateExists(int id)
+        private bool RoleExists(int id)
         {
-            return _context.State.Any(e => e.Id == id);
+            return _context.Role.Any(e => e.Id == id);
         }
     }
 }
