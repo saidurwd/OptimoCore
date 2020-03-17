@@ -65,6 +65,11 @@ namespace OptimoCore.Controllers
         // GET: AuthActions/Create
         public IActionResult Create()
         {
+            List<AuthController> controllerList = new List<AuthController>();
+            controllerList = (from c in _context.AuthController select c).ToList();
+            controllerList.Insert(0, new AuthController { Id = 0, ControllerName = "Select Controller" });
+            ViewBag.controllers = controllerList;
+
             return View();
         }
 
@@ -87,6 +92,11 @@ namespace OptimoCore.Controllers
         // GET: AuthActions/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            List<AuthController> controllerList = new List<AuthController>();
+            controllerList = (from c in _context.AuthController select c).ToList();
+            controllerList.Insert(0, new AuthController { Id = 0, ControllerName = "Select Controller" });
+            ViewBag.controllers = controllerList;
+
             if (id == null)
             {
                 return NotFound();
