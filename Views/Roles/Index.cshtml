@@ -62,6 +62,10 @@
                     { title: 'Details', data: 'details' },
                     { title: 'Status', data: 'status' },
                     {
+                        title: 'Authentication',
+                        "render": function (data, type, full, meta) { return '<a class="btn btn-info btn-xs" href="/Roles/Authentication/' + full.id + '"><i class="fa fa-random"></i></a>'; }
+                    },
+                    {
                         title: 'Actions',
                         "render": function (data, type, full, meta) { return '<a class="btn btn-info btn-xs" href="/Roles/Details/' + full.id + '"><i class="fa fa-eye"></i></a> <a class="btn btn-primary btn-xs" href="/Roles/Edit/' + full.id + '"><i class="fa fa-edit"></i></a> <a class="btn btn-danger btn-xs" href="/Roles/Delete/' + full.id + '"><i class="fa fa-trash"></i></a>'; }
                     },

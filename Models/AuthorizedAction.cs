@@ -54,7 +54,6 @@ namespace OptimoCore.Models
 
             if (access <= 0)
             {
-
                 filterContext.Result = new RedirectToRouteResult(
                     new RouteValueDictionary { { "controller", "Home" }, { "action", "Index" } });
                 return;

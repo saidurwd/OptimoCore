@@ -29,5 +29,6 @@ namespace OptimoCore.Data
         public DbSet<OptimoCore.Models.Auth> Auth { get; set; }
         public DbSet<OptimoCore.Models.Role> Role { get; set; }
         public DbSet<OptimoCore.Models.Account> Account { get; set; }
+        public DbSet<OptimoCore.Models.City> City { get; set; }
     }
 }

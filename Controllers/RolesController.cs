@@ -10,7 +10,6 @@ using OptimoCore.Models;
 
 namespace OptimoCore.Controllers
 {
-    [AuthorizedAction]
     public class RolesController : Controller
     {
         private readonly devDBContext _context;
@@ -19,13 +18,59 @@ namespace OptimoCore.Controllers
         {
             _context = context;
         }
+        //public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Authentication(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var role = await _context.Role.FirstOrDefaultAsync(m => m.Id == id);
+            if (role == null)
+            {
+                return NotFound();
+            }
+            ViewData["RoleId"] = id;
+            ViewData["RoleName"] = role.RoleName;
+            //check and insert all actions            
+            var Actions = await _context.AuthAction
+                        .Join(
+                            _context.AuthController,
+                            action => action.ControllerId,
+                            controller => controller.Id,
+                            (action, controller) => new
+                            {
+                                Id = action.Id,
+                                ControllerName = controller.ControllerName,
+                                ControllerId = action.ControllerId,
+                                ActionTitle = action.ActionTitle,
+                                ActionName = action.ActionName
+                            }
+                        ).ToListAsync();
+            foreach (var item in Actions)
+            {
+                var TotalCount = _context.Auth
+                    .Where(e => e.RoleId == id)
+                    .Where(e => e.ControllerName == item.ControllerName)
+                    .Where(e => e.ActionName == item.ActionName).Count();
+                if (TotalCount <= 0)
+                {
+                    var author = new Auth { RoleId = Convert.ToInt32(id), ControllerName = item.ControllerName, ActionName = item.ActionName, ActionTitle = item.ActionTitle, Access = "No" };
+                    _context.Add(author);
+                    _context.SaveChanges();
+                }
+            }
+            var controllers = await _context.AuthController.ToListAsync();
+            //ViewData["controllers"] = controllers;
+            return View(role);
+        }
 
         // GET: Roles
         //public async Task<IActionResult> Index()
         //{
         //    return View(await _context.Role.ToListAsync());
         //}
-
+        [AuthorizedAction]
         public IActionResult Index()
         {
             return View();
@@ -37,6 +82,7 @@ namespace OptimoCore.Controllers
             return new JsonResult(rolesList);
         }
 
+        [AuthorizedAction]
         // GET: Roles/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -55,6 +101,7 @@ namespace OptimoCore.Controllers
             return View(role);
         }
 
+        [AuthorizedAction]
         // GET: Roles/Create
         public IActionResult Create()
         {
@@ -77,6 +124,7 @@ namespace OptimoCore.Controllers
             return View(role);
         }
 
+        [AuthorizedAction]
         // GET: Roles/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -128,6 +176,7 @@ namespace OptimoCore.Controllers
             return View(role);
         }
 
+        [AuthorizedAction]
         // GET: Roles/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
