@@ -61,8 +61,26 @@ namespace OptimoCore.Controllers
                 }
             }
             var controllers = await _context.AuthController.ToListAsync();
-            //ViewData["controllers"] = controllers;
-            return View(role);
+            ViewData["a"] = "";
+            foreach (var item in controllers)
+            {
+                ViewData["a"] += "<div class='panel panel-default'>";
+                ViewData["a"] += "<div class='panel-heading'>";
+                ViewData["a"] += "<h4 class='panel-title'>";
+                ViewData["a"] += "<a data-toggle='collapse' data-parent='#accordion-"+item.Id+"' href='#collapseOne-" + item.Id + "'> <i class='fa fa-fw fa-circle-o'></i> " + item.Title + " </a>";
+                //ViewData["a"] += "<span class="pull-right"> '.Html::a('<i class="fa fa-remove"></i> Deny all '. $values["title"], 'javascript: void(0)', ['onclick' => 'setStatusController('. $_REQUEST['id']. ','. $values['id']. ',"'. $values["controller"]. '","No")', 'class' => 'btn btn-danger btn-xs uppercase margin-left-10 font-size-10']). '</span>";
+                //ViewData["a"] += "<span class="pull-right">'.Html::a('<i class="fa fa-check-square-o"></i> Access all '. $values["title"], 'javascript: void(0)', ['onclick' => 'setStatusController('. $_REQUEST['id']. ','. $values['id']. ',"'. $values["controller"]. '","Yes")', 'class' => 'btn btn-success btn-xs uppercase font-size-10']). '</span>";
+                ViewData["a"] += "</h4>";
+                ViewData["a"] += "</div>";
+                ViewData["a"] += "<div id='collapseOne-" + item.Id + "' class='panel-collapse collapse in'>";
+                ViewData["a"] += "<div class='panel-body' id='C" + item.Id + "'>";
+
+                ViewData["a"] += "</div>";
+                ViewData["a"] += "</div>";
+                ViewData["a"] += "</div>";
+
+            }
+                return View(role);
         }
 
         // GET: Roles
