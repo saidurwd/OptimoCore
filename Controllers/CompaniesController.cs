@@ -10,9 +10,8 @@ using OptimoCore.Data;
 using OptimoCore.Models;
 
 namespace ProductCatalog.Controllers
-{    
+{
     [Route("Companies")]
-    //[Authorize]
     public class CompaniesController : Controller
     {
         private readonly devDBContext _context;
@@ -22,6 +21,7 @@ namespace ProductCatalog.Controllers
             _context = context;
         }
 
+        [AuthorizedAction]
         [Route("Datatable")]
         // GET: Companies
         public IActionResult Datatable()
@@ -60,7 +60,7 @@ namespace ProductCatalog.Controllers
             return Json(new { data = empList });
         }
 
-
+        [AuthorizedAction]
         [Route("Index")]
         public IActionResult Index()
         {
@@ -74,6 +74,7 @@ namespace ProductCatalog.Controllers
             return new JsonResult(companies);
         }
 
+        [AuthorizedAction]
         // GET: Companies/Details/5
         [Route("Details/{id}")]
         public async Task<IActionResult> Details(int? id)
@@ -93,6 +94,7 @@ namespace ProductCatalog.Controllers
             return View(company);
         }
 
+        [AuthorizedAction]
         // GET: Companies/Create
         [Route("Create")]
         public IActionResult Create()
@@ -117,6 +119,7 @@ namespace ProductCatalog.Controllers
             return View(company);
         }
 
+        [AuthorizedAction]
         // GET: Companies/Edit/5
         [Route("Edit/{id}")]
         public async Task<IActionResult> Edit(int? id)
@@ -170,6 +173,7 @@ namespace ProductCatalog.Controllers
             return View(company);
         }
 
+        [AuthorizedAction]
         // GET: Companies/Delete/5
         [Route("Delete/{id}")]
         public async Task<IActionResult> Delete(int? id)

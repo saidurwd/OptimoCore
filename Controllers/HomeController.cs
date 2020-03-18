@@ -11,31 +11,22 @@ using Microsoft.AspNetCore.Http;
 
 namespace ProductCatalog.Controllers
 {
-    //[Authorize]
+    [AuthorizedAction]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        const string SessionName = "_Name";
 
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
         }
 
-        //[AllowAnonymous]
-        //[AuthorizedAction]
         public IActionResult Index()
         {
-            //string userAccess = AuthAccess.HelloDhaka(this.ControllerContext.RouteData.Values["controller"].ToString()
-            //                                         , this.ControllerContext.RouteData.Values["action"].ToString());
-            //ViewData["userAccess"] = userAccess;
-            HttpContext.Session.SetString(SessionName, "Rana");
-            ViewBag.Name = HttpContext.Session.GetString(SessionName);
             ViewData["userAccess"] = "Welcome to OptomoCore";
             return View();
         }
 
-        //[AllowAnonymous]
         public IActionResult Privacy()
         {
             return View();

@@ -30,6 +30,7 @@ namespace OptimoCore.Controllers
             _context = context;
         }
 
+        [AuthorizedAction]
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
@@ -37,6 +38,7 @@ namespace OptimoCore.Controllers
             return RedirectToAction("Index", "home");
         }
 
+        [AuthorizedAction]
         [HttpGet]
         public IActionResult Create()
         {
@@ -58,6 +60,7 @@ namespace OptimoCore.Controllers
             return View();
         }
 
+        [AuthorizedAction]
         [HttpPost]
         public async Task<IActionResult> CreateAsync(User model)
         {
@@ -103,6 +106,7 @@ namespace OptimoCore.Controllers
             }
         }
 
+        [AuthorizedAction]
         [HttpGet]
         public async Task<IActionResult> Edit(string id)
         {
@@ -145,6 +149,7 @@ namespace OptimoCore.Controllers
             return View(model);
         }
 
+        [AuthorizedAction]
         [HttpPost]
         public async Task<IActionResult> Edit(Account model)
         {
@@ -199,6 +204,7 @@ namespace OptimoCore.Controllers
         //    return View(user);
         //}
 
+        [AuthorizedAction]
         public async Task<IActionResult> Delete(string id)
         {
             var user = await userManager.FindByIdAsync(id);
@@ -243,11 +249,11 @@ namespace OptimoCore.Controllers
                 if (result.Succeeded)
                 {
                     //get loggedin user data
-                    //var userData = await _context.Account
-                    //            .FirstOrDefaultAsync(m => m.Email == model.Email);
+                    var userData = await userManager.FindByEmailAsync(model.Email);
+
                     HttpContext.Session.SetString("Email", model.Email);
-                    //HttpContext.Session.SetString("Role", Convert.ToInt32(userData.Role).ToString());
-                    //HttpContext.Session.SetString("FullName", userData.FullName);
+                    HttpContext.Session.SetString("Role", Convert.ToInt32(userData.Role).ToString());
+                    HttpContext.Session.SetString("FullName", userData.FullName.ToString());
 
                     if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
                     {
@@ -290,6 +296,7 @@ namespace OptimoCore.Controllers
             return View(model);
         }
 
+        [AuthorizedAction]
         [HttpGet]
         [AllowAnonymous]
         public IActionResult ResetPassword(string token, string email)
@@ -301,7 +308,7 @@ namespace OptimoCore.Controllers
             return View();
         }
 
-
+        [AuthorizedAction]
         [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> ResetPassword(ResetPassword model)
@@ -327,12 +334,14 @@ namespace OptimoCore.Controllers
             return View(model);
         }
 
+        [AuthorizedAction]
         [HttpGet]
         public IActionResult ChangePassword()
         {
             return View();
         }
 
+        [AuthorizedAction]
         [HttpPost]
         public async Task<IActionResult> ChangePassword(ChangePassword model)
         {
@@ -358,6 +367,7 @@ namespace OptimoCore.Controllers
             return View(model);
         }
 
+        [AuthorizedAction]
         [HttpGet]
         public IActionResult UpdatePassword(string id)
         {
@@ -368,7 +378,7 @@ namespace OptimoCore.Controllers
             return View();
         }
 
-
+        [AuthorizedAction]
         [HttpPost]
         public async Task<IActionResult> UpdatePassword(UpdatePassword model)
         {

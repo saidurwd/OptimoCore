@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace OptimoCore.Controllers
 {
+    [AuthorizedAction]
     public class AdministrationController : Controller
     {
         private readonly RoleManager<IdentityRole> roleManager;

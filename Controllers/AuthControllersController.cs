@@ -9,7 +9,7 @@ using OptimoCore.Data;
 using OptimoCore.Models;
 
 namespace OptimoCore.Controllers
-{
+{    
     public class AuthControllersController : Controller
     {
         private readonly devDBContext _context;
@@ -19,6 +19,7 @@ namespace OptimoCore.Controllers
             _context = context;
         }
 
+        [AuthorizedAction]
         // GET: AuthControllers
         public IActionResult Index()
         {
@@ -30,6 +31,7 @@ namespace OptimoCore.Controllers
             return new JsonResult(controllers);
         }
 
+        [AuthorizedAction]
         // GET: AuthControllers/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -48,6 +50,7 @@ namespace OptimoCore.Controllers
             return View(authController);
         }
 
+        [AuthorizedAction]
         // GET: AuthControllers/Create
         public IActionResult Create()
         {
@@ -70,6 +73,7 @@ namespace OptimoCore.Controllers
             return View(authController);
         }
 
+        [AuthorizedAction]
         // GET: AuthControllers/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -121,6 +125,7 @@ namespace OptimoCore.Controllers
             return View(authController);
         }
 
+        [AuthorizedAction]
         // GET: AuthControllers/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {

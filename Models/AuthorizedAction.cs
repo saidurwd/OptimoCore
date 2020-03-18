@@ -30,34 +30,33 @@ namespace OptimoCore.Models
         {
             //get dbcontext
             var db = filterContext.HttpContext.RequestServices.GetRequiredService<devDBContext>();
+
+            if (filterContext.HttpContext.Session.GetString("Email") is null)
+            {
+                filterContext.Result = new RedirectToRouteResult(
+                    new RouteValueDictionary { { "controller", "Account" }, { "action", "Login" } });
+                return;
+            }
+
             //get current Role, Controller and Action            
-            int role = 1;
+            int role = Convert.ToInt32(filterContext.HttpContext.Session.GetString("Role"));
             string controllerName = ((ControllerBase)filterContext.Controller).ControllerContext.ActionDescriptor.ControllerName;
             string actionName = ((ControllerBase)filterContext.Controller).ControllerContext.ActionDescriptor.ActionName;
 
-            //var blogs = db.Country
-            //            .FromSqlRaw("SELECT * FROM dbo.Country")
-            //            .ToList();
-            //var access = db.Database.ExecuteSqlCommand($"DECLARE @ToralRows int; EXEC spGetAccess {role},{controllerName},{actionName}, @ToralRows OUT");
-            //var access = db.Auth.FromSqlRaw($"spGetAccess {role},'{controllerName}','{actionName}'").ToList().FirstOrDefault();
-
             var access = db.Auth
                         .FromSqlRaw("SELECT * FROM dbo.Auth")
-                        .Where(e => e.RoleId == 1)
+                        .Where(e => e.RoleId == role)
                         .Where(e => e.ControllerName == controllerName)
                         .Where(e => e.ActionName == actionName)
-                        .Where(e => e.Access == "Yes").ToList().FirstOrDefault().Access.ToString();
+                        .Where(e => e.Access == "Yes").Count();
+            //.Where(e => e.Access == "Yes").ToList().FirstOrDefault().Access.ToString();
             //var accessValue = access.Access.ToString();
 
-            if (access == "Yes")
+            if (access <= 0)
             {
+
                 filterContext.Result = new RedirectToRouteResult(
-                    new RouteValueDictionary { { "controller", "Home" }, { "action", "Privacy" } });
-                return;
-            }
-            else
-            {
-                new RouteValueDictionary { { "controller", "Home" }, { "action", "Index" } };
+                    new RouteValueDictionary { { "controller", "Home" }, { "action", "Index" } });
                 return;
             }
 

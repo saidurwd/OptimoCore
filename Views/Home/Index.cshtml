@@ -23,7 +23,9 @@
 <section class="content">
     <div class="container-fluid">
         <h1>@ViewData["Name"]</h1>
-        <h2>Welcome @Context.Session.GetString("Email")</h2>
+        <h2>Email: @Context.Session.GetString("Email")</h2>
+        <h2>Role: @Context.Session.GetString("Role")</h2>
+        <h2>Name: @Context.Session.GetString("FullName")</h2>
         <h3>@ViewData["userAccess"]</h3>
     </div><!-- /.container-fluid -->
 </section>

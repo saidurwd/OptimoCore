@@ -19,6 +19,7 @@ namespace OptimoCore.Controllers
             _context = context;
         }
 
+        [AuthorizedAction]
         //[AuthorizedAction]
         public IActionResult Index()
         {
@@ -47,6 +48,7 @@ namespace OptimoCore.Controllers
             return new JsonResult(stateList);
         }
 
+        [AuthorizedAction]
         // GET: States/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -65,6 +67,7 @@ namespace OptimoCore.Controllers
             return View(state);
         }
 
+        [AuthorizedAction]
         // GET: States/Create
         public IActionResult Create()
         {
@@ -91,6 +94,7 @@ namespace OptimoCore.Controllers
             return View(state);
         }
 
+        [AuthorizedAction]
         // GET: States/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -148,6 +152,7 @@ namespace OptimoCore.Controllers
             return View(state);
         }
 
+        [AuthorizedAction]
         // GET: States/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {

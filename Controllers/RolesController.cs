@@ -10,6 +10,7 @@ using OptimoCore.Models;
 
 namespace OptimoCore.Controllers
 {
+    [AuthorizedAction]
     public class RolesController : Controller
     {
         private readonly devDBContext _context;

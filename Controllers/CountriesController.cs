@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -9,7 +10,7 @@ using OptimoCore.Data;
 using OptimoCore.Models;
 
 namespace OptimoCore.Controllers
-{
+{    
     public class CountriesController : Controller
     {
         private readonly devDBContext _context;
@@ -25,17 +26,20 @@ namespace OptimoCore.Controllers
         //    return View(await _context.Country.ToListAsync());
         //}
 
+        [AuthorizedAction]
         public IActionResult Index()
         {
             return View();
         }
 
+        //[AllowAnonymous]
         public IActionResult Display()
         {
             var countries = _context.Country.ToList();
             return new JsonResult(countries);
         }
 
+        [AuthorizedAction]
         // GET: Countries/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -54,6 +58,7 @@ namespace OptimoCore.Controllers
             return View(country);
         }
 
+        [AuthorizedAction]
         // GET: Countries/Create
         public IActionResult Create()
         {
@@ -76,6 +81,7 @@ namespace OptimoCore.Controllers
             return View(country);
         }
 
+        [AuthorizedAction]
         // GET: Countries/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -127,6 +133,7 @@ namespace OptimoCore.Controllers
             return View(country);
         }
 
+        [AuthorizedAction]
         // GET: Countries/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
