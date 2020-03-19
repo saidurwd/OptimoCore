@@ -61,26 +61,41 @@ namespace OptimoCore.Controllers
                 }
             }
             var controllers = await _context.AuthController.ToListAsync();
-            ViewData["a"] = "";
+            ViewData["returndata"] = "";
             foreach (var item in controllers)
             {
-                ViewData["a"] += "<div class='panel panel-default'>";
-                ViewData["a"] += "<div class='panel-heading'>";
-                ViewData["a"] += "<h4 class='panel-title'>";
-                ViewData["a"] += "<a data-toggle='collapse' data-parent='#accordion-"+item.Id+"' href='#collapseOne-" + item.Id + "'> <i class='fa fa-fw fa-circle-o'></i> " + item.Title + " </a>";
-                //ViewData["a"] += "<span class="pull-right"> '.Html::a('<i class="fa fa-remove"></i> Deny all '. $values["title"], 'javascript: void(0)', ['onclick' => 'setStatusController('. $_REQUEST['id']. ','. $values['id']. ',"'. $values["controller"]. '","No")', 'class' => 'btn btn-danger btn-xs uppercase margin-left-10 font-size-10']). '</span>";
-                //ViewData["a"] += "<span class="pull-right">'.Html::a('<i class="fa fa-check-square-o"></i> Access all '. $values["title"], 'javascript: void(0)', ['onclick' => 'setStatusController('. $_REQUEST['id']. ','. $values['id']. ',"'. $values["controller"]. '","Yes")', 'class' => 'btn btn-success btn-xs uppercase font-size-10']). '</span>";
-                ViewData["a"] += "</h4>";
-                ViewData["a"] += "</div>";
-                ViewData["a"] += "<div id='collapseOne-" + item.Id + "' class='panel-collapse collapse in'>";
-                ViewData["a"] += "<div class='panel-body' id='C" + item.Id + "'>";
-
-                ViewData["a"] += "</div>";
-                ViewData["a"] += "</div>";
-                ViewData["a"] += "</div>";
-
+                var ActhList = await _context.Auth
+                    .Where(e => e.RoleId == id)
+                    .Where(e => e.ControllerName == item.ControllerName).ToListAsync();
+                ViewData["returndata"] += "<div class='card card-outline card-primary collapsed-card'>";
+                ViewData["returndata"] += "<div class='card-header'>";
+                ViewData["returndata"] += "<h3 class='card-title'>" + item.Title + "</h3>";
+                ViewData["returndata"] += "<div class='card-tools'>";
+                ViewData["returndata"] += "<button type = 'button' class='btn btn-tool' data-card-widget='collapse'><i class='fas fa-plus'></i></button>";
+                ViewData["returndata"] += "</div>";
+                ViewData["returndata"] += "</div>";
+                ViewData["returndata"] += "<div class='card-body' style='display: none;'>";
+                ViewData["returndata"] += "<table class='table table-bordered'>";
+                ViewData["returndata"] += "<thead>";
+                ViewData["returndata"] += "<tr>";
+                ViewData["returndata"] += "<th>Action</th>";
+                ViewData["returndata"] += "<th>Access</th>";
+                ViewData["returndata"] += "</tr>";
+                ViewData["returndata"] += "</thead>";
+                ViewData["returndata"] += "<tbody>";
+                foreach (var items in ActhList)
+                {
+                    ViewData["returndata"] += "<tr>";
+                    ViewData["returndata"] += "<td>"+ items.ActionTitle +"</td>";
+                    ViewData["returndata"] += "<td>" + items.Access + "</td>";
+                    ViewData["returndata"] += "</tr>";
+                }
+                ViewData["returndata"] += "</tbody>";
+                ViewData["returndata"] += "</table>";
+                ViewData["returndata"] += "</div>";
+                ViewData["returndata"] += "</div>";
             }
-                return View(role);
+            return View(role);
         }
 
         // GET: Roles
